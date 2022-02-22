@@ -1,0 +1,20 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/hichain.iml
+/target/
+/clib/
+/.gradle/
+/build/
+/bin/
+/testfile/
+/logs/
+/.git_back/
+/out/
+/generated/
+/generated_tests/
+$projectDir
+gradle/
+gradlew
+gradlew.bat
+.classpath
+forsage.md

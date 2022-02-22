@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+
+    <property name="app_name" value="hichain"/>
+    <!--&lt;!&ndash; 定义日志文件 输出位置 &ndash;&gt;
+    <property name="log.home_dir" value="logs/${app_name}"/>
+    &lt;!&ndash; 单个日志最大大小 7 &ndash;&gt;
+    <property name="log.maxFileSize" value="100MB"/>
+    &lt;!&ndash; 日志最大的历史 7 &ndash;&gt;
+    <property name="log.maxHistory" value="7"/>
+    &lt;!&ndash; 日志总大小 7 &ndash;&gt;
+    <property name="log.totalSizeCap" value="3GB"/>-->
+    <!--日志输出级别-->
+    <property name="log.level" value="info"/>
+    <!--日志输出格式-->
+    <!--<property name="patternStyle" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{60} - %M - %L]  %msg%n" />-->
+    <!--<property name="patternStyle" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%logger] [%X{worker_id}] %msg%n" />-->
+    <!--<property name="patternStyle" value="[%-5level]%d{yyyy-MM-dd HH:mm:ss.SSS}[%X{requestId}] [%X{requestSeq}] [%X{uri}] [%logger] %msg%n" />-->
+    <property name="patternStyle" value="%d{yyyy-MM-dd HH:mm:ss.SSS}[%-5level] %replace(%caller{1}){'(Caller\\+0\\s+|\r\n)', ''} %msg%n" />
+
+    
+    <!--<logger name="org.springframework" level="WARN" />
+    &lt;!&ndash;myibatis log configure&ndash;&gt;
+    <logger name="com.apache.ibatis" level="DEBUG"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>-->
+
+    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+
+   <!-- &lt;!&ndash; ERROR级别日志 &ndash;&gt;
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.home_dir}/error/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <fileNamePattern>${log.home_dir}/error/error-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            &lt;!&ndash; each file should be at most 1MB, keep 60 days worth of history, but at most 20GB &ndash;&gt;
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder encoder="UTF-8">
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+
+
+    &lt;!&ndash; WARN级别日志 appender &ndash;&gt;
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.home_dir}/warn/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <fileNamePattern>${log.home_dir}/warn/warn-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            &lt;!&ndash; each file should be at most 100MB, keep 60 days worth of history, but at most 20GB &ndash;&gt;
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder encoder="UTF-8">
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+
+
+    &lt;!&ndash; INFO级别日志 appender &ndash;&gt;
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.home_dir}/info/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <fileNamePattern>${log.home_dir}/info/info-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            &lt;!&ndash; each file should be at most 100MB, keep 60 days worth of history, but at most 20GB &ndash;&gt;
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder encoder="UTF-8">
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+
+
+    &lt;!&ndash; DEBUG级别日志 appender &ndash;&gt;
+    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.home_dir}/debug/debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <fileNamePattern>${log.home_dir}/debug/debug-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            &lt;!&ndash; each file should be at most 100MB, keep 60 days worth of history, but at most 20GB &ndash;&gt;
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder encoder="UTF-8">
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+
+
+    &lt;!&ndash; TRACE级别日志 appender &ndash;&gt;
+    <appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.home_dir}/trace/trace.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>TRACE</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <fileNamePattern>${log.home_dir}/trace/trace-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            &lt;!&ndash; each file should be at most 100MB, keep 60 days worth of history, but at most 20GB &ndash;&gt;
+            <maxFileSize>${log.maxFileSize}</maxFileSize>
+            <maxHistory>${log.maxHistory}</maxHistory>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder encoder="UTF-8">
+            <pattern>${patternStyle}</pattern>
+        </encoder>
+    </appender>
+-->
+
+    <!-- root级别 -->
+    <root>
+        <!-- 打印debug级别日志及以上级别日志 -->
+        <level value="${log.level}"/>
+        <!-- 控制台输出 -->
+        <appender-ref ref="console"/>
+        <!-- 文件输出 -->
+        <!--<appender-ref ref="ERROR"/>-->
+        <!--<appender-ref ref="INFO"/>-->
+        <!--<appender-ref ref="WARN"/>
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="TRACE"/>-->
+    </root>
+</configuration>
